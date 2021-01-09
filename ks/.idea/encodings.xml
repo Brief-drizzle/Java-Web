@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/lib/commons-logging-1.2.jar" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/lib/spring-aop-5.2.9.RELEASE.jar" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/lib/spring-beans-5.2.9.RELEASE.jar" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/lib/spring-context-5.2.9.RELEASE.jar" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/lib/spring-core-5.2.9.RELEASE.jar" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/lib/spring-expression-5.2.9.RELEASE.jar" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/controller/UserController.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/mapper/Bean.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/user/controller/UserController.java" charset="GBK" />
+    <file url="PROJECT" charset="GBK" />
+  </component>
+</project>

@@ -1,0 +1,27 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="JDBCTest:Web exploded">
+    <output-path>$PROJECT_DIR$/classes/artifacts/JDBCTest_Web_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="JDBCTest/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="JDBCTest" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$PROJECT_DIR$/lib/javax.ejb.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/javax.jms.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/javax.servlet.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/javax.resource.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/javax.annotation.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/javax.persistence.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/javax.servlet.jsp.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/javax.transaction.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/javax.servlet.jsp.jstl.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/../../sy5/6-MyBatis-181002424/lib/mysql-connector-java-8.0.22.jar" />
+          <element id="library" level="module" name="cos.jar" module-name="JDBCTest" />
+          <element id="library" level="module" name="mysqlJDBC.jar" module-name="JDBCTest" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

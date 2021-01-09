@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/user/mybatis/CourseMappers.xml" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/user/mybatis/PaperMapper.xml" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/user/mybatis/ScMapper.xml" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/user/mybatis/StudentMapper.xml" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/user/mybatis/StutopicMapper.xml" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/user/mybatis/TcMapper.xml" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/user/mybatis/TeacherMapper.xml" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/user/mybatis/TopicMapper.xml" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/user/mybatis/TopicpaperMapper.xml" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/user/mybatis/UserMapper.xml" dialect="GenericSQL" />
+  </component>
+  <component name="SqlResolveMappings">
+    <file url="PROJECT" scope="{&quot;node&quot;:{  &quot;@negative&quot;:&quot;1&quot;,  &quot;group&quot;:{   &quot;@kind&quot;:&quot;root&quot;,   &quot;node&quot;:{    &quot;name&quot;:{     &quot;@qname&quot;:&quot;6d414a44-dcbb-4b5a-bedc-8807a2e9ca4a&quot;    }   }  } }}" />
+  </component>
+</project>

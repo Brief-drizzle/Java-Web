@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="user.dao.TcMapper">
+	<resultMap id="BaseResultMap" type="user.entity.Tc">
+            <result column="tc_id" property="tcId" />
+	        <result column="course_id" property="courseId" />
+	        <result column="teacher_id" property="teacherId" />
+	        <result column="tea_identity" property="teaIdentity" />
+	        <result column="teach_hour" property="teachHour" />
+		</resultMap>  
+    
+    <!-- 表字段 -->
+    <sql id="baseColumns">
+         t.tc_id
+        , t.course_id
+        , t.teacher_id
+        , t.tea_identity
+        , t.teach_hour
+        </sql> 
+    
+    <!-- 查询全部 -->
+    <select id="listAll" resultMap="BaseResultMap">
+		SELECT         
+        	<include refid="baseColumns" />
+		FROM tc t
+	</select>
+ 
+ 	<!-- 根据主键获取单条记录 -->
+    <select id="getBycourseIdmain" resultMap="BaseResultMap" parameterType="String">
+		SELECT         
+        	<include refid="baseColumns" />
+		FROM tc t
+		WHERE course_id = #{courseId}and tea_identity="主讲教师";
+	</select>
+
+    <select id="getByteacherId" resultMap="BaseResultMap" parameterType="String">
+        SELECT
+        <include refid="baseColumns" />
+        FROM tc t
+        WHERE teacher_id = #{teacherId}
+    </select>
+
+    <select id="getBycourseId" resultMap="BaseResultMap" parameterType="String">
+        SELECT
+        <include refid="baseColumns" />
+        FROM tc t
+        WHERE course_id = #{courseId}
+    </select>
+    <select id="getByTeacherCourseId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="baseColumns" />
+        FROM tc t
+        WHERE course_id=#{courseId}and teacher_id = #{teacherId}and teacher_id!="0";
+    </select>
+	<!-- 插入全部字段 -->
+    <insert id="insert" parameterType="user.entity.Tc"
+		keyProperty="tcId" keyColumn="tc_id" useGeneratedKeys="true"
+    >
+	INSERT INTO tc
+    <trim prefix="(" suffix=")" suffixOverrides=",">	 
+        	    	tc_id,
+    	        	    	course_id,
+    	        	    	teacher_id,
+    	        	    	tea_identity,
+    	        	    	teach_hour,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">            
+        	        #{tcId},                   
+    	        	        #{courseId},                   
+    	        	        #{teacherId},                   
+    	        	        #{teaIdentity},                   
+    	        	        #{teachHour},                   
+    </trim>
+	</insert>
+    
+    <!-- 插入不为NULL的字段 -->
+    <insert id="insertIgnoreNull" parameterType="user.entity.Tc"
+        keyProperty="tcId" keyColumn="tc_id" useGeneratedKeys="true"
+        >
+        INSERT INTO tc    
+        <trim prefix="(" suffix=")" suffixOverrides=",">	 
+        <if test="tcId != null">
+                   tc_id,
+        </if>
+        <if test="courseId != null">
+            course_id,
+        </if>
+        <if test="teacherId != null">
+                   teacher_id,
+        </if>
+        <if test="teaIdentity != null">
+                   tea_identity,
+        </if>
+        <if test="teachHour != null">
+                   teach_hour,
+        </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">            
+            <if test="tcId != null" >
+                    #{tcId},                    
+            </if>
+            <if test="courseId != null" >
+                    #{courseId},                    
+            </if>
+            <if test="teacherId != null" >
+                    #{teacherId},                    
+            </if>
+            <if test="teaIdentity != null" >
+                    #{teaIdentity},                    
+            </if>
+            <if test="teachHour != null" >
+                    #{teachHour},
+            </if>
+        </trim>
+    </insert>
+
+	<!-- 更新,更新全部字段 -->
+    <update id="update" parameterType="user.entity.Tc">
+    UPDATE tc
+     <set>		
+                                     course_id=#{courseId},        
+                                teacher_id=#{teacherId},        
+                                tea_identity=#{teaIdentity},        
+                                teach_hour=#{teachHour},        
+                   </set>	
+    WHERE tc_id = #{tcId}
+    </update>  
+    
+    
+    <!-- 更新不为NULL的字段 -->
+    <update id="updateIgnoreNull" parameterType="user.entity.Tc">
+    UPDATE tc
+    <set>
+    <if test="courseId != null" >
+                course_id=#{courseId},                 
+    </if>
+    <if test="teacherId != null" >
+                teacher_id=#{teacherId},                 
+    </if>
+    <if test="teaIdentity != null" >
+                tea_identity=#{teaIdentity},                 
+    </if>
+    <if test="teachHour != null" >
+                teach_hour=#{teachHour},                 
+    </if>
+    </set>
+    WHERE tc_id = #{tcId}
+    </update>
+
+		
+	<!-- 根据主键删除记录 -->
+	<delete id="delete" parameterType="user.entity.Tc">
+		delete from tc t
+		WHERE tc_id = #{tcId}
+	</delete>
+
+
+</mapper>

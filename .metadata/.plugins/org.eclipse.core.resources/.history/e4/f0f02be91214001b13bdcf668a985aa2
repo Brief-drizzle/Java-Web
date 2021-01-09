@@ -1,0 +1,194 @@
+package sy1;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@SuppressWarnings("serial")
+//@WebServlet("/GetResume")
+public class GetResume extends HttpServlet {
+
+	/**
+		 * Constructor of the object.
+		 */
+	public GetResume() {
+		super();
+	}
+
+	/**
+		 * Destruction of the servlet. <br>
+		 */
+	public void destroy() {
+		super.destroy(); // Just puts "destroy" string in log
+		// Put your code here
+	}
+
+	/**
+		 * The doGet method of the servlet. <br>
+		 *
+		 * This method is called when a form has its tag value method equals to get.
+		 * 
+		 * @param request the request send by the client to the server
+		 * @param response the response send by the server to the client
+		 * @throws ServletException if an error occurred
+		 * @throws IOException if an error occurred
+		 */
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
+		out.println("<HTML>");
+		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
+		out.println("  <BODY>");
+
+		String name=filter(request.getParameter("name"));
+		String bir_y=filter(request.getParameter("year"));
+		String bir_m=filter(request.getParameter("month"));
+		String bir_d=filter(request.getParameter("day"));
+		String sex=filter(request.getParameter("sex"));
+		String school=filter(request.getParameter("school"));
+		String information=filter(request.getParameter("information"));
+		
+		if(isParameterNull(name)||isParameterNull(bir_y)||isParameterNull(bir_m)||isParameterNull(bir_d)||isParameterNull(sex)||isParameterNull(school)||isParameterNull(information))
+		{
+			response.sendRedirect("/sy1/resume.html");
+		}
+		else if(isParameterBlank(name)||isParameterBlank(bir_y)||isParameterBlank(bir_m)||isParameterBlank(bir_d)||isParameterBlank(sex)||isParameterBlank(school)||isParameterBlank(information))
+		{
+			response.sendRedirect("/sy1/resume.html");
+		}
+		
+		out.println("<table>");
+		out.println("<tr>");
+		out.println("<td>");
+		out.println("name:");
+		out.println("</td>");
+		out.println("<td>");
+		out.println(name);
+		out.println("</td>");
+		out.println("</tr>");
+		out.println("<tr>");
+		out.println("<td>birthday:</td>");
+		out.println("<td>");
+		out.println(bir_y+"."+bir_m+"."+bir_d);
+		out.println("</td>");
+		out.println("</tr>");
+		out.println("<tr>");
+		out.println("<td>sex:</td>");
+		out.println("<td>");
+		out.println(sex);
+		out.println("</td>");
+		out.println("</tr>");
+		out.println("<tr>");
+		out.println("<td>school:</td>");
+		out.println("<td>");
+		out.println(school);
+		out.println("</td>");
+		out.println("</tr>");
+		out.println("<tr>");
+		out.println("<td>information:</td>");
+		out.println("<td>");
+		out.println(information);
+		out.println("</td>");
+		out.println("</tr>");
+		
+		out.println("  </BODY>");
+		out.println("</HTML>");
+		out.flush();
+		out.close();
+	}
+
+	private boolean isParameterBlank(String name) {
+		// TODO Auto-generated method stub
+		if (name.trim().equals(""))
+			return true;
+		else return false;
+	}
+
+	private boolean isParameterNull(String p) {
+		// TODO Auto-generated method stub
+		if (p==null)
+			return true;
+		else return false;
+	}
+	
+
+	  public static String filter(String input) {
+		    if (!hasSpecialChars(input)) {
+		      return(input);
+		    }
+		    StringBuffer filtered = new StringBuffer(input.length());
+		    char c;
+		    for(int i=0; i<input.length(); i++) {
+		      c = input.charAt(i);
+		      switch(c) {
+		        case '<': filtered.append("&lt;"); break;
+		        case '>': filtered.append("&gt;"); break;
+		        case '"': filtered.append("&quot;"); break;
+		        case '&': filtered.append("&amp;"); break;
+		        default: filtered.append(c);
+		      }
+		    }
+		    return(filtered.toString());
+		  }
+
+		  private static boolean hasSpecialChars(String input) {
+		    boolean flag = false;
+		    if ((input != null) && (input.length() > 0)) {
+		      char c;
+		      for(int i=0; i<input.length(); i++) {
+		        c = input.charAt(i);
+		        switch(c) {
+		          case '<': flag = true; break;
+		          case '>': flag = true; break;
+		          case '"': flag = true; break;
+		          case '&': flag = true; break;
+		        }
+		      }
+		    }
+		    return(flag);
+		  }
+
+	/**
+		 * The doPost method of the servlet. <br>
+		 *
+		 * This method is called when a form has its tag value method equals to post.
+		 * 
+		 * @param request the request send by the client to the server
+		 * @param response the response send by the server to the client
+		 * @throws ServletException if an error occurred
+		 * @throws IOException if an error occurred
+		 */
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
+		out.println("<HTML>");
+		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
+		out.println("  <BODY>");
+		out.println("  </BODY>");
+		out.println("</HTML>");
+		out.flush();
+		out.close();
+	}
+
+	/**
+		 * Initialization of the servlet. <br>
+		 *
+		 * @throws ServletException if an error occurs
+		 */
+	public void init() throws ServletException {
+		// Put your code here
+	}
+
+}

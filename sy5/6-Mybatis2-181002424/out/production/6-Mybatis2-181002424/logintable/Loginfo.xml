@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="logintable.Loginfo">
+<select id="isexsitanceLogin" parameterType="pojo.Logintable" resultType="pojo.Logintable">
+    select *from logintable where username=#{username};
+</select>
+
+<insert id="insertLogin" parameterType="pojo.Logintable">
+    insert into logintable (username,password) values (#{username},#{password});
+</insert>
+
+<delete id="deleteLogin" parameterType="string" >
+    delete from logintable where username=#{username};
+</delete>
+    
+<select id="allLogin" resultType="pojo.Logintable">
+        select *from logintable where username!='abc';
+</select>
+
+</mapper>

@@ -1,0 +1,39 @@
+{
+  "properties": [
+    {
+      "name": "jdbc.password",
+      "type": "java.lang.String",
+      "description": "Description for jdbc.password."
+    },
+    {
+      "name": "mybatis_config_file",
+      "type": "java.lang.String",
+      "description": "Description for mybatis_config_file."
+    },
+    ,
+    {
+      "name": "mapper_path",
+      "type": "java.lang.String",
+      "description": "Description for mapper_path."
+    },
+    {
+      "name": "entity_package",
+      "type": "java.lang.String",
+      "description": "Description for entity_package."
+    },
+    {
+      "name": "jdbc.driver",
+      "type": "java.lang.String",
+      "description": "Description for jdbc.driver."
+    },
+    {
+      "name": "jdbc.url",
+      "type": "java.lang.String",
+      "description": "Description for jdbc.url."
+    },
+    {
+      "name": "jdbc.username",
+      "type": "java.lang.String",
+      "description": "Description for jdbc.username."
+    }
+  ] }

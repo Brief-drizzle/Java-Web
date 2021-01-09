@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>register.html</title>
+	
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    <meta name="content-type" content="text/html; charset=UTF-8">
+    
+
+  </head>
+  
+  <body>
+    Please enter your ID and Password. <br>
+    <form action="/src/sy1/GetReg.java" method="get">
+  		ID: <input type="text" name="ID"><br>
+  		Password: <input type="text" name="Password"><br>
+  		<input type="submit" value="log in">
+	</form>
+  </body>
+</html>

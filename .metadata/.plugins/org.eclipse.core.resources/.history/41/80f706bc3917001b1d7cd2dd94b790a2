@@ -1,0 +1,232 @@
+package sy1;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@SuppressWarnings("serial")
+//@WebServlet("/GetResume")
+public class GetResume extends HttpServlet {
+
+	/**
+		 * Constructor of the object.
+		 */
+	public GetResume() {
+		super();
+	}
+
+	/**
+		 * Destruction of the servlet. <br>
+		 */
+	public void destroy() {
+		super.destroy(); // Just puts "destroy" string in log
+		// Put your code here
+	}
+
+	/**
+		 * The doGet method of the servlet. <br>
+		 *
+		 * This method is called when a form has its tag value method equals to get.
+		 * 
+		 * @param request the request send by the client to the server
+		 * @param response the response send by the server to the client
+		 * @throws ServletException if an error occurred
+		 * @throws IOException if an error occurred
+		 */
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		response.setContentType("text/html;charset=utf-8");
+		request.setCharacterEncoding("GBK");
+		response.setCharacterEncoding("GBK");
+		PrintWriter out = response.getWriter();
+		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
+		out.println("<HTML>");
+		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
+		out.println("  <BODY>");
+		
+		Cookie[] cookies = request.getCookies();
+		String name = null,bir_y= null,bir_m= null,bir_d= null,sex= null,school= null,information= null;
+		boolean flag=false;
+
+		for(int i = 0;i<cookies.length;i++)
+		{
+			if("name".equals(cookies[i].getName()))
+				flag=true;
+		}
+		if(!flag)
+		{
+			name=request.getParameter("name");
+			bir_y=request.getParameter("year");
+			bir_m=request.getParameter("month");
+			bir_d=request.getParameter("day");
+			sex=request.getParameter("sex");
+			school=request.getParameter("school");
+			information=request.getParameter("information");
+			Cookie name_cookie=new Cookie("name",name);
+			Cookie bir_y_cookie=new Cookie("bir_y",bir_y);
+			Cookie bir_m_cookie=new Cookie("bir_m",bir_m);
+			Cookie bir_d_cookie=new Cookie("bir_d",bir_d);
+			Cookie sex_cookie=new Cookie("sex",sex);
+			Cookie school_cookie=new Cookie("school",school);
+			Cookie infor_cookie=new Cookie("information",information);
+			response.addCookie(name_cookie);
+			response.addCookie(bir_y_cookie);
+			response.addCookie(bir_m_cookie);
+			response.addCookie(bir_d_cookie);
+			response.addCookie(sex_cookie);
+			response.addCookie(school_cookie);
+			response.addCookie(infor_cookie);
+		}
+		else if(flag)
+		{
+			for(int i = 0;i<cookies.length;i++)
+			{
+				if("name".equals(cookies[i].getName()))
+				{
+					name=cookies[i].getValue();
+				}
+				if("bir_y".equals(cookies[i].getName()))
+				{
+					bir_y=cookies[i].getValue();
+				}
+				if("bir_m".equals(cookies[i].getName()))
+				{
+					bir_m=cookies[i].getValue();
+				}
+				if("bir_d".equals(cookies[i].getName()))
+				{
+					bir_d=cookies[i].getValue();
+				}
+				if("sex".equals(cookies[i].getName()))
+				{
+					sex=cookies[i].getValue();
+				}
+				if("school".equals(cookies[i].getName()))
+				{
+					school=cookies[i].getValue();
+				}
+				if("information".equals(cookies[i].getName()))
+				{
+					information=cookies[i].getValue();
+				}
+			}
+		}
+
+		//if(isParameterNull(name)||isParameterNull(bir_y)||isParameterNull(bir_m)||isParameterNull(bir_d)||isParameterNull(sex)||isParameterNull(school)||isParameterNull(information))
+		//{
+		//	response.sendRedirect("/sy1/resume.html");
+		//}
+		//if(isParameterBlank(name)||isParameterBlank(bir_y)||isParameterBlank(bir_m)||isParameterBlank(bir_d)||isParameterBlank(sex)||isParameterBlank(school)||isParameterBlank(information))
+		//{
+		//	response.sendRedirect("/sy1/resume.html");
+		//}
+		out.println("<PRE>\n" +"<table>"+"<tr>"+"<td>"+"name:"+"</td>"+"<td>"+name+"</td>"+"</tr>");
+		out.println("<tr>"+"<td>birthday:</td>"+"<td>"+bir_y+"."+bir_m+"."+bir_d+"</td>"+"</tr>");
+		out.println("<tr>"+"<td>sex:</td>"+"<td>"+sex+"</td>"+"</tr>");
+		out.println("<tr>"+"<td>school:</td>"+"<td>"+school+"</td>"+"</tr>");
+		out.println("<tr>"+"<td>information:</td>"+"<td>"+information+"</td>"+"</tr>"+"</PRE>\n");
+		
+		out.println("  </BODY>");
+		out.println("</HTML>");
+		out.flush();
+		out.close();
+	}
+	
+	public static Cookie[] retu(Cookie[] c)
+	{
+		return c;
+	}
+
+	@SuppressWarnings("unused")
+	private boolean isParameterBlank(String name) {
+		if (name=="")
+			return true;
+		else return false;
+	}
+
+	@SuppressWarnings("unused")
+	private boolean isParameterNull(String p) {
+		if (p==null)
+			return true;
+		else return false;
+	}
+
+	  public static String filter(String input) {
+		    if (!hasSpecialChars(input)) {
+		      return(input);
+		    }
+		    StringBuffer filtered = new StringBuffer(input.length());
+		    char c;
+		    for(int i=0; i<input.length(); i++) {
+		      c = input.charAt(i);
+		      switch(c) {
+		        case '<': filtered.append("&lt;"); break;
+		        case '>': filtered.append("&gt;"); break;
+		        case '"': filtered.append("&quot;"); break;
+		        case '&': filtered.append("&amp;"); break;
+		        default: filtered.append(c);
+		      }
+		    }
+		    return(filtered.toString());
+		  }
+
+		  private static boolean hasSpecialChars(String input) {
+		    boolean flag = false;
+		    if ((input != null) && (input.length() > 0)) {
+		      char c;
+		      for(int i=0; i<input.length(); i++) {
+		        c = input.charAt(i);
+		        switch(c) {
+		          case '<': flag = true; break;
+		          case '>': flag = true; break;
+		          case '"': flag = true; break;
+		          case '&': flag = true; break;
+		        }
+		      }
+		    }
+		    return(flag);
+		  }
+
+	/**
+		 * The doPost method of the servlet. <br>
+		 *
+		 * This method is called when a form has its tag value method equals to post.
+		 * 
+		 * @param request the request send by the client to the server
+		 * @param response the response send by the server to the client
+		 * @throws ServletException if an error occurred
+		 * @throws IOException if an error occurred
+		 */
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		response.setCharacterEncoding("GBK");
+		request.setCharacterEncoding("GBK");
+		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
+		out.println("<HTML>");
+		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
+		out.println("  <BODY>");
+		out.println("  </BODY>");
+		out.println("</HTML>");
+		out.flush();
+		out.close();
+	}
+
+	/**
+		 * Initialization of the servlet. <br>
+		 *
+		 * @throws ServletException if an error occurs
+		 */
+	public void init() throws ServletException {
+		// Put your code here
+	}
+
+}

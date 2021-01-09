@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="detailedinfo.Detailedinfo">
+<insert id="insertDetail" parameterType="pojo.Detailedinfotable">
+    insert into detailedinfo (username,age,sexy,picturelocation) values (#{username},#{age},#{sexy},#{picturelocation});
+</insert>
+
+<update id="updateDetail" parameterType="pojo.Detailedinfotable">
+    update detailedinfo
+    set age =#{age},sexy=#{sexy},picturelocation=#{picturelocation}
+    where username=#{username}
+</update>
+    
+<select id="getDetail" resultType="pojo.Detailedinfotable" parameterType="string">
+    select * from detailedinfo where username=#{username}
+</select>
+
+<delete id="deleteDetail" parameterType="string">
+    delete from detailedinfo where username=#{username}
+</delete>
+</mapper>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="user.dao.TopicpaperMapper">
+	<resultMap id="BaseResultMap" type="user.entity.Topicpaper">
+            <result column="topicpaper_id" property="topicpaperId" />
+	        <result column="stutopic_id" property="stutopicId" />
+	        <result column="paper_id" property="paperId" />
+	        <result column="relevancy" property="relevancy" />
+		</resultMap>  
+    
+    <!-- 表字段 -->
+    <sql id="baseColumns">
+         t.topicpaper_id
+        , t.stutopic_id
+        , t.paper_id
+        , t.relevancy
+        </sql> 
+    
+    <!-- 查询全部 -->
+    <select id="listAll" resultMap="BaseResultMap">
+		SELECT         
+        	<include refid="baseColumns" />
+		FROM topicpaper t
+	</select>
+ 
+ 	<!-- 根据主键获取单条记录 -->
+    <select id="getById" resultMap="BaseResultMap" parameterType="String">
+		SELECT         
+        	<include refid="baseColumns" />
+		FROM topicpaper t
+		WHERE topicpaper_id = #{topicpaperId}
+	</select>
+    <select id="getByStutopicId" resultMap="BaseResultMap" parameterType="String">
+        SELECT
+        <include refid="baseColumns" />
+        FROM topicpaper t
+        WHERE stutopic_id = #{stutopicid}
+    </select>
+
+	<!-- 插入全部字段 -->
+    <insert id="insert" parameterType="user.entity.Topicpaper"
+		keyProperty="topicpaperId" keyColumn="topicpaper_id" useGeneratedKeys="true"
+    >
+	INSERT INTO topicpaper
+    <trim prefix="(" suffix=")" suffixOverrides=",">	 
+        	    	topicpaper_id,
+    	        	    	stutopic_id,
+    	        	    	paper_id,
+    	        	    	relevancy,
+    	        </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">            
+        	        #{topicpaperId},                   
+    	        	        #{stutopicId},                   
+    	        	        #{paperId},                   
+    	        	        #{relevancy},                   
+    	        </trim>
+	</insert>
+    
+    <!-- 插入不为NULL的字段 -->
+    <insert id="insertIgnoreNull" parameterType="user.entity.Topicpaper"
+        keyProperty="topicpaperId" keyColumn="topicpaper_id" useGeneratedKeys="true"
+        >
+        INSERT INTO topicpaper    
+        <trim prefix="(" suffix=")" suffixOverrides=",">	 
+
+            <if test="topicpaperId != null">
+                   topicpaper_id,
+                    </if>
+            <if test="stutopicId != null">
+                   stutopic_id,
+                    </if>
+            <if test="paperId != null">
+                   paper_id,
+                    </if>
+            <if test="relevancy != null">
+                   relevancy,
+                    </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">            
+            <if test="topicpaperId != null" >
+                    #{topicpaperId},                    
+                    </if>
+            <if test="stutopicId != null" >
+                    #{stutopicId},                    
+                    </if>
+            <if test="paperId != null" >
+                    #{paperId},                    
+                    </if>
+            <if test="relevancy != null" >
+                    #{relevancy},                    
+                    </if>
+        </trim>
+    </insert>
+
+	<!-- 更新,更新全部字段 -->
+    <update id="update" parameterType="user.entity.Topicpaper">
+    UPDATE topicpaper
+     <set>		
+                                     stutopic_id=#{stutopicId},        
+                                paper_id=#{paperId},        
+                                relevancy=#{relevancy},        
+     </set>
+    WHERE topicpaper_id = #{topicpaperId}
+    </update>  
+    
+    
+    <!-- 更新不为NULL的字段 -->
+    <update id="updateIgnoreNull" parameterType="user.entity.Topicpaper">
+    UPDATE topicpaper
+    <set>
+        <if test="stutopicId != null" >
+                stutopic_id=#{stutopicId},                 
+                </if>
+        <if test="paperId != null" >
+                paper_id=#{paperId},                 
+                </if>
+        <if test="relevancy != null" >
+                relevancy=#{relevancy},                 
+                </if>
+    </set>
+    WHERE topicpaper_id = #{topicpaperId}
+    </update>
+
+		
+	<!-- 根据主键删除记录 -->
+	<delete id="delete" parameterType="user.entity.Topicpaper">
+		UPDATE topicpaper
+		SET is_deleted=1
+		WHERE topicpaper_id = #{topicpaperId}
+	</delete>
+
+
+</mapper>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="user.dao.PaperMapper">
+	<resultMap id="BaseResultMap" type="user.entity.Paper">
+            <result column="paper_id" property="paperId" />
+	        <result column="title" property="title" />
+	        <result column="author" property="author" />
+	        <result column="source" property="source" />
+	        <result column="keyword" property="keyword" />
+	        <result column="abstract" property="abstracts" />
+	        <result column="doc_location" property="docLocation" />
+	        <result column="student_id" property="studentId" />
+	        <result column="uploading_time" property="uploadingTime" />
+		</resultMap>  
+    
+    <!-- 表字段 -->
+    <sql id="baseColumns">
+         t.paper_id
+        , t.title
+        , t.author
+        , t.source
+        , t.keyword
+        , t.abstract
+        , t.doc_location
+        , t.student_id
+        , t.uploading_time
+        </sql> 
+    
+    <!-- 查询全部 -->
+    <select id="listAll" resultMap="BaseResultMap">
+		SELECT         
+        	<include refid="baseColumns" />
+		FROM paper t
+	</select>
+    <select id="listAllPaper" resultMap="BaseResultMap">
+        SELECT
+        <include refid="baseColumns" />
+        FROM paper t
+        where paper_id in (select paper_id from topicpaper where stutopic_id in
+        (select stutopic_id from stutopic where topic_id=#{topicid}and student_id=#{stuid}))
+    </select>
+ 
+ 	<!-- 根据主键获取单条记录 -->
+    <select id="getById" resultMap="BaseResultMap" parameterType="String">
+		SELECT         
+        	<include refid="baseColumns" />
+		FROM paper t
+		WHERE paper_id = #{paperId}
+	</select>
+
+	<!-- 插入全部字段 -->
+    <insert id="insert" parameterType="user.entity.Paper"
+		keyProperty="paperId" keyColumn="paper_id" useGeneratedKeys="true"
+    >
+	INSERT INTO paper
+    <trim prefix="(" suffix=")" suffixOverrides=",">	 
+        	    	paper_id,
+    	        	    	title,
+    	        	    	author,
+    	        	    	source,
+    	        	    	keyword,
+    	        	    	abstract,
+    	        	    	doc_location,
+    	        	    	student_id,
+    	        	    	uploading_time,
+    	        </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">            
+        	        #{paperId},                   
+    	        	        #{title},                   
+    	        	        #{author},                   
+    	        	        #{source},                   
+    	        	        #{keyword},                   
+    	        	        #{abstract},                   
+    	        	        #{docLocation},                   
+    	        	        #{studentId},                   
+    	        	        #{uploadingTime},                   
+    	        </trim>
+	</insert>
+    
+    <!-- 插入不为NULL的字段 -->
+    <insert id="insertIgnoreNull" parameterType="user.entity.Paper"
+        keyProperty="paperId" keyColumn="paper_id" useGeneratedKeys="true"
+        >
+        INSERT INTO paper    
+        <trim prefix="(" suffix=")" suffixOverrides=",">	 
+
+            <if test="paperId != null">
+                   paper_id,
+                    </if>
+            <if test="title != null">
+                   title,
+                    </if>
+            <if test="author != null">
+                   author,
+                    </if>
+            <if test="source != null">
+                   source,
+                    </if>
+            <if test="keyword != null">
+                   keyword,
+                    </if>
+            <if test="abstract != null">
+                   abstract,
+                    </if>
+            <if test="docLocation != null">
+                   doc_location,
+                    </if>
+            <if test="studentId != null">
+                   student_id,
+                    </if>
+            <if test="uploadingTime != null">
+                   uploading_time,
+                    </if>
+                                    </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">            
+            <if test="paperId != null" >
+                    #{paperId},                    
+                    </if>
+            <if test="title != null" >
+                    #{title},                    
+                    </if>
+            <if test="author != null" >
+                    #{author},                    
+                    </if>
+            <if test="source != null" >
+                    #{source},                    
+                    </if>
+            <if test="keyword != null" >
+                    #{keyword},                    
+                    </if>
+            <if test="abstract != null" >
+                    #{abstract},                    
+                    </if>
+            <if test="docLocation != null" >
+                    #{docLocation},                    
+                    </if>
+            <if test="studentId != null" >
+                    #{studentId},                    
+                    </if>
+            <if test="uploadingTime != null" >
+                    #{uploadingTime},                    
+                    </if>
+                                    </trim>
+    </insert>
+
+	<!-- 更新,更新全部字段 -->
+    <update id="update" parameterType="user.entity.Paper">
+    UPDATE paper
+     <set>		
+                                     title=#{title},        
+                                author=#{author},        
+                                source=#{source},        
+                                keyword=#{keyword},        
+                                abstract=#{abstract},        
+                                doc_location=#{docLocation},        
+                                student_id=#{studentId},        
+                                uploading_time=#{uploadingTime},        
+                   </set>	
+    WHERE paper_id = #{paperId}
+    </update>  
+    
+    
+    <!-- 更新不为NULL的字段 -->
+    <update id="updateIgnoreNull" parameterType="user.entity.Paper">
+    UPDATE paper
+    <set>
+        <if test="title != null" >
+                title=#{title},                 
+                </if>
+        <if test="author != null" >
+                author=#{author},                 
+                </if>
+        <if test="source != null" >
+                source=#{source},                 
+                </if>
+        <if test="keyword != null" >
+                keyword=#{keyword},                 
+                </if>
+        <if test="abstract != null" >
+                abstract=#{abstract},                 
+                </if>
+        <if test="docLocation != null" >
+                doc_location=#{docLocation},                 
+                </if>
+        <if test="studentId != null" >
+                student_id=#{studentId},                 
+                </if>
+        <if test="uploadingTime != null" >
+                uploading_time=#{uploadingTime},                 
+                </if>
+                        </set>
+    WHERE paper_id = #{paperId}
+    </update>
+
+		
+	<!-- 根据主键删除记录 -->
+	<delete id="delete" parameterType="user.entity.Paper">
+		UPDATE paper
+		SET is_deleted=1
+		WHERE paper_id = #{paperId}
+	</delete>
+
+
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mybatis.user.Usermapper">
+<select id="queryUserById" resultType="pojo.Userpojo">
+    select *from user_table where user_table.username=#{username};
+</select>
+<insert id="insertUser" parameterType="pojo.Userpojo">
+    insert into user_table (username,word) values (#{username},#{word});
+</insert>
+<update id="updateUser" parameterType="pojo.Userpojo">
+    UPDATE user_table
+    set word = #{word}
+    WHERE
+    username= #{username};
+</update>
+</mapper>

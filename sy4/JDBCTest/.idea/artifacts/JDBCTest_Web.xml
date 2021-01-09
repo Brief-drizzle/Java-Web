@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="JDBCTest:Web">
+    <output-path>$PROJECT_DIR$/../../../export/sy4</output-path>
+    <root id="archive" name="JDBCTest_Web.war">
+      <element id="artifact" artifact-name="JDBCTest:Web exploded" />
+    </root>
+  </artifact>
+</component>

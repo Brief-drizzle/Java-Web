@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="user.dao.StutopicMapper">
+    <resultMap id="BaseResultMap" type="user.entity.Stutopic">
+        <result column="stutopic_id" property="stutopicId" />
+        <result column="student_id" property="studentId" />
+        <result column="topic_id" property="topicId" />
+        <result column="select_time" property="selectTime" />
+        <result column="flag" property="flag" />
+    </resultMap>
+
+    <!-- 表字段 -->
+    <sql id="baseColumns">
+        t.stutopic_id
+        , t.student_id
+        , t.topic_id
+        , t.select_time
+        , t.flag
+    </sql>
+
+    <!-- 查询全部 -->
+    <select id="listAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="baseColumns" />
+        FROM stutopic t
+    </select>
+    <select id="listAllByStu" resultMap="BaseResultMap">
+        SELECT
+        <include refid="baseColumns" />
+        FROM stutopic t
+        where student_id=#{stuid}
+    </select>
+    <select id="listAllByTopic" resultMap="BaseResultMap">
+        SELECT
+        <include refid="baseColumns" />
+        FROM stutopic t
+        where topic_id=#{topicid}
+    </select>
+
+    <!-- 根据主键获取单条记录 -->
+    <select id="getById" resultMap="BaseResultMap" parameterType="String">
+        SELECT
+        <include refid="baseColumns" />
+        FROM stutopic t
+        WHERE stutopic_id = #{stutopicId}
+    </select>
+    <select id="getByStuTopId" resultMap="BaseResultMap" parameterType="String">
+        SELECT
+        <include refid="baseColumns" />
+        FROM stutopic t
+        WHERE student_id=#{stuId}and topic_id=#{TopicId}
+    </select>
+
+    <!-- 插入全部字段 -->
+    <insert id="insert" parameterType="user.entity.Stutopic">
+        INSERT INTO stutopic
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            stutopic_id,
+            student_id,
+            topic_id,
+            select_time,
+            flag,
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            #{stutopicId},
+            #{studentId},
+            #{topicId},
+            #{selectTime},
+            #{flag},
+        </trim>
+    </insert>
+
+    <!-- 插入不为NULL的字段 -->
+    <insert id="insertIgnoreNull" parameterType="user.entity.Stutopic"
+            keyProperty="stutopicId" keyColumn="stutopic_id" useGeneratedKeys="true"
+    >
+        INSERT INTO stutopic
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+
+            <if test="stutopicId != null">
+                stutopic_id,
+            </if>
+            <if test="studentId != null">
+                student_id,
+            </if>
+            <if test="topicId != null">
+                topic_id,
+            </if>
+            <if test="selectTime != null">
+                select_time,
+            </if>
+            <if test="flag != null">
+                flag,
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="stutopicId != null" >
+                #{stutopicId},
+            </if>
+            <if test="studentId != null" >
+                #{studentId},
+            </if>
+            <if test="topicId != null" >
+                #{topicId},
+            </if>
+            <if test="selectTime != null" >
+                #{selectTime},
+            </if>
+            <if test="flag != null" >
+                #{flag},
+            </if>
+        </trim>
+    </insert>
+
+    <!-- 更新,更新全部字段 -->
+    <update id="update" parameterType="user.entity.Stutopic">
+        UPDATE stutopic
+        <set>
+            student_id=#{studentId},
+            topic_id=#{topicId},
+            select_time=#{selectTime},
+            flag=#{flag},
+        </set>
+        WHERE stutopic_id = #{stutopicId}
+    </update>
+
+
+    <!-- 更新不为NULL的字段 -->
+    <update id="updateIgnoreNull" parameterType="user.entity.Stutopic">
+        UPDATE stutopic
+        <set>
+            <if test="studentId != null" >
+                student_id=#{studentId},
+            </if>
+            <if test="topicId != null" >
+                topic_id=#{topicId},
+            </if>
+            <if test="selectTime != null" >
+                select_time=#{selectTime},
+            </if>
+            <if test="flag != null" >
+                flag=#{flag},
+            </if>
+        </set>
+        WHERE stutopic_id = #{stutopicId}
+    </update>
+
+
+    <!-- 根据主键删除记录 -->
+    <delete id="delete" parameterType="user.entity.Stutopic">
+		UPDATE stutopic
+		SET is_deleted=1
+		WHERE stutopic_id = #{stutopicId}
+	</delete>
+
+
+</mapper>

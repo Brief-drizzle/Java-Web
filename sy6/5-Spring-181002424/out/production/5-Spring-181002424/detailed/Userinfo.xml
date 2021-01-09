@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="detailed.Userinfo">
+    <insert id="insertUsertailed" parameterType="userpojo.Usertable">
+        insert into log_table (username,password,email,phonenumber,status) values (#{username},#{password},#{email},#{phonenumber},true)
+    </insert>
+    <insert id="insertLoginfo">
+        insert into loginfo (username,logtime,logip,logcontime) values (#{username},#{logtime},#{logip},#{logcontime});
+    </insert>
+    <select id="isexsitanceLogin" parameterType="string" resultType="userpojo.Usertable">
+    select * from log_table where username=#{username};
+</select>
+    <select id="alluser" resultType="userpojo.Logtable">
+    select * from loginfo;
+    </select>
+</mapper>

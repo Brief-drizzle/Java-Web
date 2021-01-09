@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/GetLogin.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/beans/DBConnection.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/beans/DetailedInfoBean.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/beans/GetDetailedRegister.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/beans/LoginBean.java" charset="GBK" />
+  </component>
+</project>

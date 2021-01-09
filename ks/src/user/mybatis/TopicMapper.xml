@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="user.dao.TopicMapper">
+	<resultMap id="BaseResultMap" type="user.entity.Topic">
+            <result column="topic_id" property="topicId" />
+	        <result column="course_id" property="courseId" />
+	        <result column="teacher_id" property="teacherId" />
+	        <result column="topic" property="topic" />
+	        <result column="keyword" property="keyword" />
+	        <result column="creation_time" property="creationTime" />
+	        <result column="student_num" property="studentNum" />
+		</resultMap>  
+    
+    <!-- 表字段 -->
+    <sql id="baseColumns">
+         t.topic_id
+        , t.course_id
+        , t.teacher_id
+        , t.topic
+        , t.keyword
+        , t.creation_time
+        , t.student_num
+        </sql> 
+    
+    <!-- 查询全部 -->
+    <select id="listAll" resultMap="BaseResultMap">
+		SELECT         
+        	<include refid="baseColumns" />
+		FROM topic t
+	</select>
+    <select id="listAllTopic" resultMap="BaseResultMap">
+        SELECT
+        <include refid="baseColumns" />
+        FROM topic t
+        where topic_id in (select topic_id from stutopic where student_id=#{studentId})
+    </select>
+ 
+ 	<!-- 根据主键获取单条记录 -->
+    <select id="getById" resultMap="BaseResultMap" parameterType="String">
+		SELECT         
+        	<include refid="baseColumns" />
+		FROM topic t
+		WHERE topic_id = #{topicId}
+	</select>
+    <select id="getByName" resultMap="BaseResultMap" parameterType="String">
+        SELECT
+        <include refid="baseColumns" />
+        FROM topic t
+        WHERE topic=#{topicName}
+    </select>
+
+	<!-- 插入全部字段 -->
+    <insert id="insert" parameterType="user.entity.Topic"
+		keyProperty="topicId" keyColumn="topic_id" useGeneratedKeys="true"
+    >
+	INSERT INTO topic
+    <trim prefix="(" suffix=")" suffixOverrides=",">	 
+        	    	topic_id,
+    	        	    	course_id,
+    	        	    	teacher_id,
+    	        	    	topic,
+    	        	    	keyword,
+    	        	    	creation_time,
+    	        	    	student_num,
+    	        </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">            
+        	        #{topicId},                   
+    	        	        #{courseId},                   
+    	        	        #{teacherId},                   
+    	        	        #{topic},                   
+    	        	        #{keyword},                   
+    	        	        #{creationTime},                   
+    	        	        #{studentNum},                   
+    	        </trim>
+	</insert>
+    
+    <!-- 插入不为NULL的字段 -->
+    <insert id="insertIgnoreNull" parameterType="user.entity.Topic"
+        keyProperty="topicId" keyColumn="topic_id" useGeneratedKeys="true"
+        >
+        INSERT INTO topic    
+        <trim prefix="(" suffix=")" suffixOverrides=",">	 
+
+            <if test="topicId != null">
+                   topic_id,
+            </if>
+            <if test="courseId != null">
+                   course_id,
+                    </if>
+            <if test="teacherId != null">
+                   teacher_id,
+                    </if>
+            <if test="topic != null">
+                   topic,
+                    </if>
+            <if test="keyword != null">
+                   keyword,
+                    </if>
+            <if test="creationTime != null">
+                   creation_time,
+                    </if>
+            <if test="studentNum != null">
+                   student_num,
+                    </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">            
+            <if test="topicId != null" >
+                    #{topicId},                    
+                    </if>
+            <if test="courseId != null" >
+                    #{courseId},                    
+                    </if>
+            <if test="teacherId != null" >
+                    #{teacherId},                    
+                    </if>
+            <if test="topic != null" >
+                    #{topic},                    
+                    </if>
+            <if test="keyword != null" >
+                    #{keyword},                    
+                    </if>
+            <if test="creationTime != null" >
+                    #{creationTime},                    
+                    </if>
+            <if test="studentNum != null" >
+                    #{studentNum},                    
+                    </if>
+                                    </trim>
+    </insert>
+
+	<!-- 更新,更新全部字段 -->
+    <update id="update" parameterType="user.entity.Topic">
+    UPDATE topic
+     <set>		
+                                     course_id=#{courseId},        
+                                teacher_id=#{teacherId},        
+                                topic=#{topic},        
+                                keyword=#{keyword},        
+                                creation_time=#{creationTime},        
+                                student_num=#{studentNum},        
+                   </set>	
+    WHERE topic_id = #{topicId}
+    </update>  
+    
+    
+    <!-- 更新不为NULL的字段 -->
+    <update id="updateIgnoreNull" parameterType="user.entity.Topic">
+    UPDATE topic
+    <set>
+        <if test="courseId != null" >
+                course_id=#{courseId},                 
+                </if>
+        <if test="teacherId != null" >
+                teacher_id=#{teacherId},                 
+                </if>
+        <if test="topic != null" >
+                topic=#{topic},                 
+                </if>
+        <if test="keyword != null" >
+                keyword=#{keyword},                 
+                </if>
+        <if test="creationTime != null" >
+                creation_time=#{creationTime},                 
+                </if>
+        <if test="studentNum != null" >
+                student_num=#{studentNum},                 
+                </if>
+    </set>
+    WHERE topic_id = #{topicId}
+    </update>
+
+		
+	<!-- 根据主键删除记录 -->
+	<delete id="delete" parameterType="user.entity.Topic">
+		UPDATE topic
+		SET is_deleted=1
+		WHERE topic_id = #{topicId}
+	</delete>
+
+
+</mapper>

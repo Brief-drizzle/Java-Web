@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- 根标签 -->
+<configuration>
+    <mappers>
+        <mapper resource="user/mybatis/UserMapper.xml"/>
+        <mapper resource="user/mybatis/TopicpaperMapper.xml"/>
+        <mapper resource="user/mybatis/TopicMapper.xml"/>
+        <mapper resource="user/mybatis/TeacherMapper.xml"/>
+        <mapper resource="user/mybatis/TcMapper.xml"/>
+        <mapper resource="user/mybatis/StutopicMapper.xml"/>
+        <mapper resource="user/mybatis/StudentMapper.xml"/>
+        <mapper resource="user/mybatis/ScMapper.xml"/>
+        <mapper resource="user/mybatis/PaperMapper.xml"/>
+        <mapper resource="user/mybatis/CourseMappers.xml"/>
+    </mappers>
+</configuration>

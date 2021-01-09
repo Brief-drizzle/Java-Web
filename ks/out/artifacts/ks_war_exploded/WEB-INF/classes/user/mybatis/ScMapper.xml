@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="user.dao.ScMapper">
+    <resultMap id="BaseResultMap" type="user.entity.Sc">
+        <result column="sc_id" property="scId" />
+        <result column="course_id" property="courseId" />
+        <result column="student_id" property="studentId" />
+        <result column="score" property="score" />
+    </resultMap>
+
+    <!-- 表字段 -->
+    <sql id="baseColumns">
+        t.sc_id
+        , t.course_id
+        , t.student_id
+        , t.score
+    </sql>
+
+    <!-- 查询全部 -->
+    <select id="listAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="baseColumns" />
+        FROM sc t
+    </select>
+    <select id="listAllBycourse" resultMap="BaseResultMap">
+        SELECT
+        <include refid="baseColumns" />
+        FROM sc t
+        where course_id=#{courseId}
+    </select>
+
+    <!-- 根据主键获取单条记录 -->
+    <select id="getById" resultMap="BaseResultMap" parameterType="String">
+        SELECT
+        <include refid="baseColumns" />
+        FROM sc t
+        WHERE sc_id = #{scId}
+    </select>
+    <select id="getByStuId" resultMap="BaseResultMap" parameterType="String">
+        SELECT
+        <include refid="baseColumns" />
+        FROM sc t
+        WHERE student_id = #{studentid}
+    </select>
+    <select id="getByCourseId" resultMap="BaseResultMap" parameterType="String">
+        SELECT
+        <include refid="baseColumns" />
+        FROM sc t
+        WHERE course_id = #{courseid}
+    </select>
+    <select id="getByCourseStuId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="baseColumns" />
+        FROM sc t
+        WHERE course_id=#{courseid}and student_id = #{stuid};
+    </select>
+    <!-- 插入全部字段 -->
+    <insert id="insert" parameterType="user.entity.Sc"
+            keyProperty="scId" keyColumn="sc_id" useGeneratedKeys="true"
+    >
+        INSERT INTO sc
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            sc_id,
+            course_id,
+            student_id,
+            score,
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            #{scId},
+            #{courseId},
+            #{studentId},
+            #{score},
+        </trim>
+    </insert>
+
+    <!-- 插入不为NULL的字段 -->
+    <insert id="insertIgnoreNull" parameterType="user.entity.Sc"
+            keyProperty="scId" keyColumn="sc_id" useGeneratedKeys="true"
+    >
+        INSERT INTO sc
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+
+            <if test="scId != null">
+                sc_id,
+            </if>
+            <if test="courseId != null">
+                course_id,
+            </if>
+            <if test="studentId != null">
+                student_id,
+            </if>
+            <if test="score != null">
+                score,
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="scId != null" >
+                #{scId},
+            </if>
+            <if test="courseId != null" >
+                #{courseId},
+            </if>
+            <if test="studentId != null" >
+                #{studentId},
+            </if>
+            <if test="score != null" >
+                #{score},
+            </if>
+        </trim>
+    </insert>
+
+    <!-- 更新,更新全部字段 -->
+    <update id="update" parameterType="user.entity.Sc">
+        UPDATE sc
+        <set>
+            course_id=#{courseId},
+            student_id=#{studentId},
+            score=#{score},
+        </set>
+        WHERE sc_id = #{scId}
+    </update>
+
+
+    <!-- 更新不为NULL的字段 -->
+    <update id="updateIgnoreNull" parameterType="user.entity.Sc">
+        UPDATE sc
+        <set>
+            <if test="courseId != null" >
+                course_id=#{courseId},
+            </if>
+            <if test="studentId != null" >
+                student_id=#{studentId},
+            </if>
+            <if test="score != null" >
+                score=#{score},
+            </if>
+        </set>
+        WHERE sc_id = #{scId}
+    </update>
+
+
+    <!-- 根据主键删除记录 -->
+    <delete id="delete" parameterType="user.entity.Sc">
+		delete from sc t
+		WHERE sc_id = #{scId}
+	</delete>
+
+
+</mapper>

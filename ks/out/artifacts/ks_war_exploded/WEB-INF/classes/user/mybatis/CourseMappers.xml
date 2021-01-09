@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="user.dao.CourseMapper">
+    <resultMap id="BaseResultMap" type="user.entity.Course">
+        <result column="course_id" property="courseId" />
+        <result column="course_name" property="courseName" />
+        <result column="term" property="term" />
+        <result column="course_hour" property="courseHour" />
+    </resultMap>
+
+    <!-- 表字段 -->
+    <sql id="baseColumns">
+        t.course_id
+        , t.course_name
+        , t.term
+        , t.course_hour
+    </sql>
+
+    <!-- 查询全部 -->
+    <select id="listAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="baseColumns" />
+        FROM course t
+    </select>
+    <select id="listAllTeacher" resultMap="BaseResultMap">
+        select
+        <include refid="baseColumns"/>
+        from course t
+        where course_id in (select course_id from tc where teacher_id=#{teacherId})
+    </select>
+    <select id="listAllbyStu" resultMap="BaseResultMap">
+        select
+        <include refid="baseColumns"/>
+        from course t
+        where course_id in (select course_id from sc where student_id=#{stuid})
+    </select>
+
+    <!-- 根据主键获取单条记录 -->
+    <select id="getById" resultMap="BaseResultMap" parameterType="String">
+        SELECT
+        <include refid="baseColumns" />
+        FROM course t
+        WHERE course_id = #{courseId}
+    </select>
+    <select id="getCourseId" resultMap="BaseResultMap">
+        select <include refid="baseColumns" />
+        from course t
+        where course_name=#{coursename}
+    </select>
+
+    <!-- 插入全部字段 -->
+    <insert id="insert" parameterType="user.entity.Course"
+            keyProperty="courseId" keyColumn="course_id" useGeneratedKeys="true"
+    >
+        INSERT INTO course
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            course_id,
+            course_name,
+            term,
+            course_hour,
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            #{courseId},
+            #{courseName},
+            #{term},
+            #{courseHour},
+        </trim>
+    </insert>
+
+    <!-- 插入不为NULL的字段 -->
+    <insert id="insertIgnoreNull" parameterType="user.entity.Course"
+            keyProperty="courseId" keyColumn="course_id" useGeneratedKeys="true"
+    >
+        INSERT INTO course
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+
+            <if test="courseId != null">
+                course_id,
+            </if>
+            <if test="courseName != null">
+                course_name,
+            </if>
+            <if test="term != null">
+                term,
+            </if>
+            <if test="courseHour != null">
+                course_hour,
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="courseId != null" >
+                #{courseId},
+            </if>
+            <if test="courseName != null" >
+                #{courseName},
+            </if>
+            <if test="term != null" >
+                #{term},
+            </if>
+            <if test="courseHour != null" >
+                #{courseHour},
+            </if>
+        </trim>
+    </insert>
+
+    <!-- 更新,更新全部字段 -->
+    <update id="update" parameterType="user.entity.Course">
+        UPDATE course
+        <set>
+            course_name=#{courseName},
+            term=#{term},
+            course_hour=#{courseHour},
+        </set>
+        WHERE course_id = #{courseId}
+    </update>
+
+
+    <!-- 更新不为NULL的字段 -->
+    <update id="updateIgnoreNull" parameterType="user.entity.Course">
+        UPDATE course
+        <set>
+            <if test="courseName != null" >
+                course_name=#{courseName},
+            </if>
+            <if test="term != null" >
+                term=#{term},
+            </if>
+            <if test="courseHour != null" >
+                course_hour=#{courseHour},
+            </if>
+        </set>
+        WHERE course_id = #{courseId}
+    </update>
+
+
+    <!-- 根据主键删除记录 -->
+    <delete id="delete" parameterType="user.entity.Course">
+		UPDATE course
+		SET is_deleted=1
+		WHERE course_id = #{courseId}
+	</delete>
+
+
+</mapper>
